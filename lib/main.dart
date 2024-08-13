@@ -1,9 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:lumody/core/routes/route_name.dart';
 
 import 'core/routes/route.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // Only portrait
+  SystemChrome.setPreferredOrientations(
+    [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown],
+  );
+
+  // Transparent navigation bar
+  SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+    statusBarBrightness: Brightness.light,
+    statusBarIconBrightness: Brightness.dark,
+    statusBarColor: Colors.transparent,
+    systemNavigationBarColor: Colors.transparent,
+  ));
+
   runApp(const MyApp());
 }
 
@@ -18,7 +35,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      initialRoute: RouteName.initial,
+      initialRoute: RouteName.main,
       onGenerateRoute: generateRoute,
     );
   }
