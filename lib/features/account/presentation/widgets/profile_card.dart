@@ -34,14 +34,14 @@ class ProfileCard extends StatelessWidget {
                     const Text(
                       'Freddy Tamwo',
                       style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
                       ),
                     ),
                     Text(
                       'freddytamwo@gmail.com',
                       style: TextStyle(
-                        //fontSize: 18,
+                        fontSize: 13,
                         color: Colors.grey[600],
                       ),
                     ),

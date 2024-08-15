@@ -5,7 +5,7 @@ import 'package:flutter/rendering.dart';
 import 'package:lumody/features/home/presentation/widgets/animated_floating_button.dart';
 import 'package:lumody/features/home/presentation/widgets/background_overlay.dart';
 import 'package:lumody/features/home/presentation/widgets/triangle.dart';
-import 'package:lumody/shared/presentation/widgets/lumody_app_bar.dart';
+import 'package:lumody/shared/presentation/widgets/app_bar.dart';
 import 'package:supercharged/supercharged.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -106,7 +106,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     return PopScope(
       onPopInvoked: _preventPopIfOpen,
       child: Scaffold(
-        appBar: lumodyAppBar(context, 'Home'),
+        appBar: mainAppBar(context, 'Home'),
         body: SingleChildScrollView(
           child: Column(
             children: [

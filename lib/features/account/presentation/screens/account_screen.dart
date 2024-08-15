@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:lumody/features/account/presentation/widgets/account_list_item.dart';
+import 'package:lumody/features/account/presentation/widgets/app_divider.dart';
 import 'package:lumody/features/account/presentation/widgets/profile_card.dart';
-import 'package:lumody/shared/presentation/widgets/lumody_app_bar.dart';
+import 'package:lumody/shared/presentation/widgets/app_bar.dart';
 
 class AccountScreen extends StatefulWidget {
   const AccountScreen({super.key});
@@ -19,10 +21,10 @@ class _AccountScreenState extends State<AccountScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[200],
-      appBar: lumodyAppBar(context, 'Account'),
+      appBar: mainAppBar(context, 'Account'),
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16),
+          padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Column(
             children: [
               const Padding(
@@ -41,15 +43,13 @@ class _AccountScreenState extends State<AccountScreen> {
                         icon: Icons.school_rounded,
                         onTap: () {},
                       ),
-
-                      Divider(height: 0, color: Colors.grey.shade100,indent: 10,endIndent: 10),
+                      const AppDivider(),
                       AccountListItem(
                         title: 'Favorites',
                         icon: Icons.star_outline_rounded,
                         onTap: () {},
                       ),
-
-                      Divider(height: 0, color: Colors.grey.shade100,indent: 10,endIndent: 10),
+                      const AppDivider(),
                       AccountListItem(
                         title: 'Photo Gallery',
                         icon: Icons.photo_library,
@@ -123,7 +123,9 @@ class _AccountScreenState extends State<AccountScreen> {
                       AccountListItem(
                         title: 'App Appearance',
                         icon: Icons.remove_red_eye_outlined,
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.pushNamed(context, '/app-appearance');
+                        },
                       ),
                       AccountListItem(
                         title: 'Help & Support',
@@ -149,80 +151,17 @@ class _AccountScreenState extends State<AccountScreen> {
                     ],
                   )),
               const Padding(
-                padding: EdgeInsets.symmetric(vertical: 20),
+                padding: EdgeInsets.symmetric(vertical: 10),
                 child: Text(
                   'v1.0.0',
                   style: TextStyle(
-                    fontSize: 16,
+                    fontSize: 14,
                     color: Colors.grey,
+                    fontStyle: FontStyle.italic,
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
               ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class AccountListItem extends StatelessWidget {
-  final String title;
-  final IconData icon;
-  final bool isLogout;
-  final Function? onTap;
-
-  const AccountListItem({
-    required this.title,
-    required this.icon,
-    this.isLogout = false,
-    this.onTap,
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Material(
-      color: Colors.white,
-      borderRadius: BorderRadius.circular(8),
-      child: InkWell(
-        onTap: onTap as void Function()?,
-        borderRadius: BorderRadius.circular(8),
-        splashColor: Colors.blue.withOpacity(0.1),
-        hoverColor: Colors.blue.withOpacity(0.1),
-        overlayColor: MaterialStateProperty.all(Colors.blue.withOpacity(0.1)),
-        // splashColor: Colors.blue.withOpacity(0.2),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 13),
-          child: Row(
-            children: [
-              /* Image.asset(
-                icon,
-                width: 30,
-                height: 30,
-              ),*/
-              Icon(
-                icon,
-                size: 24,
-                color: isLogout ? Colors.red : Colors.grey[600],
-              ),
-              const SizedBox(width: 10),
-              Text(
-                title,
-                style:  TextStyle(
-                  fontSize: 16,
-                  color: isLogout ? Colors.red : null,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              if (!isLogout) ...[
-                const Spacer(),
-                Icon(
-                  Icons.arrow_forward_ios,
-                  size: 20,
-                  color: Colors.grey[600],
-                ),
-              ]
             ],
           ),
         ),

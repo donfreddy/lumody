@@ -30,6 +30,9 @@ dependencies:
   # Supercharged brings all the comfort features from languages like Kotlin.
   supercharged: ^2.1.1
 
+  # Animate check box with custom design
+  msh_checkbox: ^2.0.1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

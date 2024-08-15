@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-AppBar lumodyAppBar(BuildContext context, String title) {
+AppBar mainAppBar(BuildContext context, String title) {
   return AppBar(
     leading: IconButton(
       icon: const Icon(Icons.person_pin),
@@ -20,5 +20,15 @@ AppBar lumodyAppBar(BuildContext context, String title) {
         ),
       ),
     ],
+  );
+}
+
+AppBar simpleAppBar(BuildContext context, String title) {
+  return AppBar(
+    centerTitle: true,
+    title: Text(title, style: const TextStyle(
+      fontSize: 22,
+      fontWeight: FontWeight.bold,
+    ),),
   );
 }
