@@ -1,9 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:lumody/core/core.dart';
-import 'package:lumody/core/shared/presentation/widgets/lmd_app_bar.dart';
 import 'package:lumody/features/account/presentation/widgets/account_list_item.dart';
-import 'package:lumody/core/shared/presentation/widgets/lmd_divider.dart';
 import 'package:lumody/features/account/presentation/widgets/profile_card.dart';
 
 class AccountScreen extends StatefulWidget {

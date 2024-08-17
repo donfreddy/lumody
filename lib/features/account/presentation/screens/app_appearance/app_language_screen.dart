@@ -1,8 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:lumody/core/core.dart';
-import 'package:lumody/core/shared/presentation/widgets/lmd_app_bar.dart';
-import 'package:lumody/core/shared/presentation/widgets/lmd_divider.dart';
 
 class AppLanguageScreen extends StatelessWidget {
   const AppLanguageScreen({super.key});
@@ -24,33 +22,24 @@ class AppLanguageScreen extends StatelessWidget {
                 ),
                 child: ListView.builder(
                   shrinkWrap: true,
+                  padding: EdgeInsets.zero,
                   physics: const NeverScrollableScrollPhysics(),
                   itemCount: lmdSupportedLanguages.length,
                   itemBuilder: (context, index) {
-                    void onChangeLanguage(Language language) {
-                      context.setLocale(Locale(language.code!));
-                    }
-
-                    final language = lmdSupportedLanguages[index];
-
-                    if (index < lmdSupportedLanguages.length - 1) {
-                      return Column(
-                        children: [
-                          buildListTile(
-                            context,
-                            language: language,
-                            onChangeLanguage: onChangeLanguage,
+                    return Column(
+                      children: [
+                        buildListTile(
+                          context,
+                          language: lmdSupportedLanguages[index],
+                          onChangeLanguage: (language) => context.setLocale(
+                            Locale(language.code!),
                           ),
+                        ),
+                        if (index < lmdSupportedLanguages.length - 1) ...[
                           const LmdDivider(),
-                        ],
-                      );
-                    } else {
-                      return buildListTile(
-                        context,
-                        language: language,
-                        onChangeLanguage: onChangeLanguage,
-                      );
-                    }
+                        ]
+                      ],
+                    );
                   },
                 ),
               ),
