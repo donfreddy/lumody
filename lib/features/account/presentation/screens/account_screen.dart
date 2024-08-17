@@ -1,8 +1,10 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:lumody/core/core.dart';
+import 'package:lumody/core/shared/presentation/widgets/lmd_app_bar.dart';
 import 'package:lumody/features/account/presentation/widgets/account_list_item.dart';
-import 'package:lumody/features/account/presentation/widgets/app_divider.dart';
+import 'package:lumody/core/shared/presentation/widgets/lmd_divider.dart';
 import 'package:lumody/features/account/presentation/widgets/profile_card.dart';
-import 'package:lumody/shared/presentation/widgets/app_bar.dart';
 
 class AccountScreen extends StatefulWidget {
   const AccountScreen({super.key});
@@ -20,7 +22,6 @@ class _AccountScreenState extends State<AccountScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[200],
       appBar: mainAppBar(context, 'Account'),
       body: SingleChildScrollView(
         child: Padding(
@@ -33,7 +34,7 @@ class _AccountScreenState extends State<AccountScreen> {
               ),
               Container(
                   decoration: BoxDecoration(
-                    color: Colors.white,
+                    color: context.cardColor,
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Column(
@@ -43,13 +44,13 @@ class _AccountScreenState extends State<AccountScreen> {
                         icon: Icons.school_rounded,
                         onTap: () {},
                       ),
-                      const AppDivider(),
+                      const LmdDivider(),
                       AccountListItem(
                         title: 'Favorites',
                         icon: Icons.star_outline_rounded,
                         onTap: () {},
                       ),
-                      const AppDivider(),
+                      const LmdDivider(),
                       AccountListItem(
                         title: 'Photo Gallery',
                         icon: Icons.photo_library,
@@ -60,7 +61,7 @@ class _AccountScreenState extends State<AccountScreen> {
               const SizedBox(height: 20),
               Container(
                   decoration: BoxDecoration(
-                    color: Colors.white,
+                    color: context.cardColor,
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Column(
@@ -95,7 +96,7 @@ class _AccountScreenState extends State<AccountScreen> {
               const SizedBox(height: 20),
               Container(
                   decoration: BoxDecoration(
-                    color: Colors.white,
+                    color: context.cardColor,
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Column(
@@ -121,7 +122,7 @@ class _AccountScreenState extends State<AccountScreen> {
                         onTap: () {},
                       ),
                       AccountListItem(
-                        title: 'App Appearance',
+                        title: 'appearance'.tr(),
                         icon: Icons.remove_red_eye_outlined,
                         onTap: () {
                           Navigator.pushNamed(context, '/app-appearance');

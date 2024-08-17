@@ -1,14 +1,16 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:lumody/features/account/presentation/widgets/app_divider.dart';
-import 'package:lumody/shared/presentation/widgets/app_bar.dart';
+import 'package:lumody/core/core.dart';
+import 'package:lumody/core/shared/presentation/widgets/lmd_app_bar.dart';
+import 'package:lumody/core/shared/presentation/widgets/lmd_divider.dart';
 
 class AppLanguageScreen extends StatelessWidget {
   const AppLanguageScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
-      appBar: simpleAppBar(context, 'App Language'),
+    return Scaffold(
+      appBar: simpleAppBar(context, 'language'.tr()),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -17,35 +19,42 @@ class AppLanguageScreen extends StatelessWidget {
               const SizedBox(height: 20),
               Container(
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: context.cardColor,
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: ListView.builder(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
-                  itemCount: languages.length,
+                  itemCount: lmdSupportedLanguages.length,
                   itemBuilder: (context, index) {
-                    if (index < languages.length - 1) {
+                    void onChangeLanguage(Language language) {
+                      context.setLocale(Locale(language.code!));
+                    }
+
+                    final language = lmdSupportedLanguages[index];
+
+                    if (index < lmdSupportedLanguages.length - 1) {
                       return Column(
                         children: [
                           buildListTile(
-                            language: languages[index],
-                            isSelected: index == 0?true: false,
-                            onTap: () {},
+                            context,
+                            language: language,
+                            onChangeLanguage: onChangeLanguage,
                           ),
-                          const AppDivider(),
+                          const LmdDivider(),
                         ],
                       );
                     } else {
                       return buildListTile(
-                        language: languages[index],
-                        isSelected: index == 0?true: false,
-                        onTap: () {},
+                        context,
+                        language: language,
+                        onChangeLanguage: onChangeLanguage,
                       );
                     }
                   },
                 ),
               ),
+              const SizedBox(height: 40),
             ],
           ),
         ),
@@ -53,65 +62,27 @@ class AppLanguageScreen extends StatelessWidget {
     );
   }
 
-  Widget buildListTile({
-    required String language,
-    required bool isSelected,
-    required Function onTap,
+  Widget buildListTile(
+    BuildContext context, {
+    required Language language,
+    required void Function(Language) onChangeLanguage,
   }) {
-    return Material(
-      color: Colors.white,
+    return LmdMaterial(
       borderRadius: BorderRadius.circular(8),
-      child: InkWell(
-        onTap: onTap as void Function()?,
-        borderRadius: BorderRadius.circular(8),
-        splashColor: Colors.black.withOpacity(0.04),
-        hoverColor: Colors.black.withOpacity(0.04),
-        overlayColor: MaterialStateProperty.all(Colors.black.withOpacity(0.04)),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
-          child: Row(
-            children: [
-              Text(
-                language,
-                style: const TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-              if(isSelected)...[
-                const Spacer(),
-                const Icon(
-                  Icons.check,
-                  color: Colors.green,
-                ),
-              ]
-            ],
-          ),
+      color: context.cardColor,
+      onTap: () => onChangeLanguage(language),
+      child: Padding(
+        padding: 8.edgeInsetsH + 16.edgeInsetsV,
+        child: Row(
+          children: [
+            Text(language.name!.tr(), style: context.bodyMedium),
+            if (context.locale.languageCode == language.code) ...[
+              const Spacer(),
+              Icon(Icons.check, color: context.primaryColor),
+            ]
+          ],
         ),
       ),
     );
   }
 }
-
-const languages = [
-  'System Default',
-  'English',
-  'Spanish',
-  'French',
-  'German',
-  'Italian',
-  'Portuguese',
-  'Russian',
-  'Chinese',
-  'Japanese',
-  'Korean',
-  'Arabic',
-  'Hindi',
-  'Bengali',
-  'Punjabi',
-  'Urdu',
-  'Turkish',
-  'Vietnamese',
-  'Thai',
-  'Swahili',
-];

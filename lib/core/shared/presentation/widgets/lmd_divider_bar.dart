@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:lumody/core/core.dart';
 
-class DividerBar extends StatelessWidget {
+class LmdDividerBar extends StatelessWidget {
   final double width;
   final Color? color;
 
-  const DividerBar({
+  const LmdDividerBar({
     this.width = 50,
     this.color,
     super.key,
@@ -15,7 +16,7 @@ class DividerBar extends StatelessWidget {
     return Container(
       width: width,
       decoration: BoxDecoration(
-        color: color ?? Colors.black.withOpacity(0.08),
+        color: color ?? context.textColor.withOpacity(0.08),
         borderRadius: BorderRadius.circular(8),
       ),
       height: 4,

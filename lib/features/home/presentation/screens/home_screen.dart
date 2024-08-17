@@ -2,10 +2,10 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:lumody/core/shared/presentation/widgets/lmd_app_bar.dart';
 import 'package:lumody/features/home/presentation/widgets/animated_floating_button.dart';
 import 'package:lumody/features/home/presentation/widgets/background_overlay.dart';
 import 'package:lumody/features/home/presentation/widgets/triangle.dart';
-import 'package:lumody/shared/presentation/widgets/app_bar.dart';
 import 'package:supercharged/supercharged.dart';
 
 class HomeScreen extends StatefulWidget {

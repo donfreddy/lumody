@@ -7,5 +7,5 @@ class RouteName {
 
   // Account
   static const String appAppearance = '/app-appearance';
-  static const String appLanguage = '/app-language';
+  static const String appLanguage = '/app-language.dart';
 }

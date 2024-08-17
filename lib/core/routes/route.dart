@@ -11,7 +11,7 @@ Route generateRoute(RouteSettings settings) {
 
   switch (settings.name) {
     case RouteName.initial:
-      return MaterialPageRoute(builder: (_) => const MyHomePage(title: ''));
+      return MaterialPageRoute(builder: (_) => const Placeholder());
     case RouteName.main:
       return MaterialPageRoute(builder: (_) => const MainScreen());
     case RouteName.appAppearance:

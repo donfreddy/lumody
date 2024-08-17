@@ -1,7 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:lumody/features/account/presentation/widgets/app_divider.dart';
-import 'package:lumody/shared/presentation/widgets/app_bar.dart';
-import 'package:lumody/shared/presentation/widgets/divider_bar.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lumody/core/core.dart';
 
 class AppAppearanceScreen extends StatelessWidget {
   const AppAppearanceScreen({super.key});
@@ -9,7 +9,7 @@ class AppAppearanceScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: simpleAppBar(context, 'App Appearance'),
+      appBar: simpleAppBar(context, 'appearance'.tr()),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -18,24 +18,33 @@ class AppAppearanceScreen extends StatelessWidget {
               const SizedBox(height: 20),
               Container(
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: context.cardColor,
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: Column(
                   children: [
-                    buildListTile(
-                      title: 'Theme',
-                      value: 'Light',
-                      onTap: () {
-                        showChooseThemeModalBottomSheet(context);
+                    BlocConsumer<LmdThemeCubit, ThemeMode>(
+                      listener: (context, state) {},
+                      builder: (context, state) {
+                        return buildListTile(
+                          context,
+                          title: 'theme'.tr(),
+                          value: state.name.tr(),
+                          onTap: () {
+                            showChooseThemeModalBottomSheet(context);
+                          },
+                        );
                       },
                     ),
-                    const AppDivider(),
+                    const LmdDivider(),
                     buildListTile(
-                      title: 'App Language',
-                      value: 'System Default',
+                      context,
+                      title: 'language'.tr(),
+                      value: context.locale.languageCode == 'en'
+                          ? 'english'.tr()
+                          : 'french'.tr(),
                       onTap: () {
-                        Navigator.pushNamed(context, '/app-language');
+                        Navigator.pushNamed(context, '/app-language.dart');
                       },
                     ),
                   ],
@@ -48,52 +57,46 @@ class AppAppearanceScreen extends StatelessWidget {
     );
   }
 
-  Widget buildListTile({
+  Widget buildListTile(
+    BuildContext context, {
     required String title,
     required String value,
-    required Function onTap,
+    required void Function() onTap,
   }) {
-    return Material(
-      color: Colors.white,
+    return LmdMaterial(
       borderRadius: BorderRadius.circular(8),
-      child: InkWell(
-        onTap: onTap as void Function()?,
-        borderRadius: BorderRadius.circular(8),
-        splashColor: Colors.blue.withOpacity(0.1),
-        hoverColor: Colors.blue.withOpacity(0.1),
-        overlayColor: MaterialStateProperty.all(Colors.blue.withOpacity(0.1)),
-        // splashColor: Colors.blue.withOpacity(0.2),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
-          child: Row(
-            children: [
-              Text(
-                title,
-                style: const TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500,
-                ),
+      color: context.cardColor,
+      onTap: onTap,
+      child: Padding(
+        padding: 8.edgeInsetsH + 16.edgeInsetsV,
+        child: Row(
+          children: [
+            Text(
+              title,
+              style: const TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
               ),
-              const Spacer(),
-              Row(
-                children: [
-                  Text(
-                    value,
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: Colors.grey[600],
-                    ),
-                  ),
-                  const SizedBox(width: 4),
-                  Icon(
-                    Icons.arrow_forward_ios,
-                    size: 20,
+            ),
+            const Spacer(),
+            Row(
+              children: [
+                Text(
+                  value,
+                  style: TextStyle(
+                    fontSize: 14,
                     color: Colors.grey[600],
                   ),
-                ],
-              ),
-            ],
-          ),
+                ),
+                const SizedBox(width: 4),
+                Icon(
+                  Icons.arrow_forward_ios,
+                  size: 20,
+                  color: Colors.grey[600],
+                ),
+              ],
+            ),
+          ],
         ),
       ),
     );
@@ -126,21 +129,29 @@ class ChooseThemeModalBottomSheet extends StatefulWidget {
 
 class _ChooseThemeModalBottomSheetState
     extends State<ChooseThemeModalBottomSheet> {
-  String selectedTheme = 'system';
+  late LmdThemeCubit lmdThemeCubit;
+  late ThemeMode selectedTheme;
 
-  void onThemeChange(String value) {
+  void onThemeChange(ThemeMode value) {
     setState(() {
       selectedTheme = value;
     });
   }
 
   @override
+  void initState() {
+    lmdThemeCubit = context.read<LmdThemeCubit>();
+    selectedTheme = lmdThemeCubit.themeMode;
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Container(
-      height: 350,
-      decoration: const BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.only(
+      height: 370,
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.background,
+        borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(12.0),
           topRight: Radius.circular(12.0),
         ),
@@ -150,39 +161,39 @@ class _ChooseThemeModalBottomSheetState
         child: Column(
           children: [
             const SizedBox(height: 10),
-            const DividerBar(width: 40),
-            const Padding(
-              padding: EdgeInsets.symmetric(vertical: 16),
+            const LmdDividerBar(width: 40),
+            Padding(
+              padding: 16.edgeInsetsV,
               child: Text(
-                'Choose Theme',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w600,
+                'choose_theme'.tr(),
+                style: context.bodyMedium.copyWith(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w500,
                 ),
               ),
             ),
-            const AppDivider(indent: 0),
+            const LmdDivider(indent: 0),
             const SizedBox(height: 16),
             ThemeOption(
-              displayText: 'System Default',
-              value: 'system',
+              displayText: 'system'.tr(),
+              themeMode: ThemeMode.system,
               currentTheme: selectedTheme,
               onThemeChange: onThemeChange,
             ),
             ThemeOption(
-              displayText: 'Light',
-              value: 'light',
+              displayText: 'light'.tr(),
+              themeMode: ThemeMode.light,
               currentTheme: selectedTheme,
               onThemeChange: onThemeChange,
             ),
             ThemeOption(
-              displayText: 'Dark',
-              value: 'dark',
+              displayText: 'dark'.tr(),
+              themeMode: ThemeMode.dark,
               currentTheme: selectedTheme,
               onThemeChange: onThemeChange,
             ),
             const SizedBox(height: 16),
-            const AppDivider(indent: 0),
+            const LmdDivider(indent: 0),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 16),
               child: Row(
@@ -198,10 +209,11 @@ class _ChooseThemeModalBottomSheetState
                               .withOpacity(0.1),
                           side: const BorderSide(color: Colors.transparent),
                         ),
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        child: const Text('Cancel'),
+                        onPressed: () => context.pop(),
+                        child: Text(
+                          'actions.cancel'.tr(),
+                          style: context.bodyMedium,
+                        ),
                       ),
                     ),
                   ),
@@ -211,9 +223,13 @@ class _ChooseThemeModalBottomSheetState
                       height: 50,
                       child: FilledButton(
                         onPressed: () {
-                          Navigator.pop(context);
+                          context.pop();
+                          lmdThemeCubit.setThemeMode(selectedTheme);
                         },
-                        child: const Text('OK'),
+                        child: Text(
+                          'actions.ok'.tr(),
+                          style: context.bodyMedium,
+                        ),
                       ),
                     ),
                   ),
@@ -229,13 +245,13 @@ class _ChooseThemeModalBottomSheetState
 
 class ThemeOption extends StatelessWidget {
   final String displayText;
-  final String value;
-  final String currentTheme;
-  final ValueChanged<String>? onThemeChange;
+  final ThemeMode themeMode;
+  final ThemeMode currentTheme;
+  final ValueChanged<ThemeMode>? onThemeChange;
 
   const ThemeOption({
     required this.displayText,
-    required this.value,
+    required this.themeMode,
     required this.currentTheme,
     this.onThemeChange,
     super.key,
@@ -243,38 +259,27 @@ class ThemeOption extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      color: Colors.white,
-      borderRadius: BorderRadius.circular(8),
-      child: InkWell(
-        onTap: () => onThemeChange!(value),
-        borderRadius: BorderRadius.circular(8),
-        splashColor: Colors.black.withOpacity(0.04),
-        hoverColor: Colors.black.withOpacity(0.04),
-        overlayColor: MaterialStateProperty.all(Colors.black.withOpacity(0.04)),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 12),
-          child: Row(
-            children: [
-              Radio<String>(
-                value: value,
-                groupValue: currentTheme,
-                onChanged: (v) => onThemeChange!(v!),
-                visualDensity: const VisualDensity(
-                    horizontal: VisualDensity.minimumDensity,
-                    vertical: VisualDensity.minimumDensity),
-                materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-              ),
-              const SizedBox(width: 10),
-              Text(
-                displayText,
-                style: const TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-            ],
-          ),
+    return LmdMaterial(
+      onTap: () => onThemeChange!(themeMode),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 12),
+        child: Row(
+          children: [
+            Radio<ThemeMode>(
+              value: themeMode,
+              groupValue: currentTheme,
+              onChanged: (v) => onThemeChange!(v!),
+              visualDensity: const VisualDensity(
+                  horizontal: VisualDensity.minimumDensity,
+                  vertical: VisualDensity.minimumDensity),
+              materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+            ),
+            const SizedBox(width: 10),
+            Text(
+              displayText,
+              style: context.bodyMedium,
+            ),
+          ],
         ),
       ),
     );
