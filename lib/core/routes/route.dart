@@ -1,10 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lumody/core/routes/route_name.dart';
-import 'package:lumody/features/account/presentation/screens/app_appearance/app_appearance_screen.dart';
-import 'package:lumody/features/account/presentation/screens/app_appearance/app_language_screen.dart';
 import 'package:lumody/features/home/presentation/screens/main_screen.dart';
-import 'package:lumody/main.dart';
+
+import '../../features/account/account.dart';
 
 Route generateRoute(RouteSettings settings) {
   Object? args = settings.arguments;
@@ -13,13 +12,13 @@ Route generateRoute(RouteSettings settings) {
     case RouteName.initial:
       return MaterialPageRoute(builder: (_) => const Placeholder());
     case RouteName.main:
-      return MaterialPageRoute(builder: (_) => const MainScreen());
-    case RouteName.appAppearance:
-      return CupertinoPageRoute(builder: (_) => const AppAppearanceScreen());
-    case RouteName.appLanguage:
-      return CupertinoPageRoute(builder: (_) => const AppLanguageScreen());
+      return CupertinoPageRoute(builder: (_) => const MainScreen());
+    case RouteName.appearance:
+      return CupertinoPageRoute(builder: (_) => const AppearanceScreen());
+    case RouteName.changeLanguage:
+      return CupertinoPageRoute(builder: (_) => const ChangeLanguageScreen());
     default:
-      return MaterialPageRoute(
+      return CupertinoPageRoute(
         builder: (_) => Scaffold(
           body: Center(
             child: Text('No route defined for ${settings.name}'),
@@ -42,7 +41,8 @@ class CustomPageRoute<T> extends MaterialPageRoute<T> {
     const end = Offset.zero;
     const curve = Curves.easeInOut;
 
-    var slideTween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+    var slideTween =
+        Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
     var fadeTween = Tween<double>(begin: 0.0, end: 1.0);
 
     return FadeTransition(

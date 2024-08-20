@@ -1,16 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lumody/core/core.dart';
 
 class AccountListItem extends StatelessWidget {
   final String title;
-  final IconData icon;
-  final bool isLogout;
+  final String? value;
+  final IconData? icon;
+  final bool showIcon;
+  final bool showSwitch;
+  final bool showCheck;
+  final bool showValue;
+  final bool showArrow;
+  final Color? iconColor;
+  final Color? titleColor;
   final void Function()? onTap;
 
   const AccountListItem({
     required this.title,
-    required this.icon,
-    this.isLogout = false,
+    this.icon,
+    this.value,
+    this.showIcon = true,
+    this.showSwitch = false,
+    this.showCheck = false,
+    this.showValue = false,
+    this.showArrow = true,
+    this.iconColor,
+    this.titleColor,
     this.onTap,
     super.key,
   });
@@ -20,37 +35,56 @@ class AccountListItem extends StatelessWidget {
     return LmdMaterial(
       color: context.cardColor,
       onTap: onTap,
-      borderRadius: BorderRadius.circular(8),
+      borderRadius: 8.borderRadiusA,
       child: Padding(
-        padding: 8.edgeInsetsH + 16.edgeInsetsV,
+        padding: 8.edgeInsetsH + 12.edgeInsetsV,
         child: Row(
           children: [
-            /* Image.asset(
-              icon,
-              width: 30,
-              height: 30,
-            ),*/
-            Icon(
-              icon,
-              size: 24,
-              color: isLogout ? Colors.red : Colors.grey[600],
-            ),
-            const SizedBox(width: 10),
+            if (showIcon) ...[
+              Icon(
+                icon,
+                size: 24,
+                color: iconColor ?? context.iconTheme.color,
+              ),
+              width12,
+            ],
             Text(
               title,
               style: context.bodyMedium.copyWith(
-                fontSize: 16,
                 fontWeight: FontWeight.w500,
+                color: titleColor,
               ),
             ),
-            if (!isLogout) ...[
+            const Spacer(),
+            Row(
+              children: [
+                if (showValue) ...[
+                  Text(
+                    value!,
+                    style: context.bodyMedium.copyWith(
+                      fontSize: 13.sp,
+                    ),
+                  ),
+                ],
+                if (showArrow || showCheck) ...[
+                  Icon(
+                    showCheck ? Icons.check : Icons.arrow_forward_ios,
+                    size: 20,
+                    color: showCheck
+                        ? context.primaryColor
+                        : context.iconTheme.color,
+                  ),
+                ],
+              ],
+            ),
+            if (showSwitch) ...[
               const Spacer(),
-              Icon(
-                Icons.arrow_forward_ios,
-                size: 20,
-                color: Colors.grey[600],
+              Switch(
+                value: true,
+                onChanged: (value) {},
+                activeColor: context.primaryColor,
               ),
-            ]
+            ],
           ],
         ),
       ),

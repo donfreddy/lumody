@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/core.dart';
 
@@ -13,13 +14,14 @@ class ProfileCard extends StatelessWidget {
       borderRadius: 8.borderRadiusA,
       child: Container(
         decoration: BoxDecoration(borderRadius: 8.borderRadiusA),
-        child:  Padding(
+        child: Padding(
           padding: 8.edgeInsetsA,
           child: Row(
             children: [
-              const CircleAvatar(
-                radius: 25,
-                backgroundImage: AssetImage('assets/images/profile_img.png'),
+              CircleAvatar(
+                radius: 20.r,
+                backgroundImage:
+                    const AssetImage('assets/images/profile_img.png'),
               ),
               width12,
               Column(
@@ -28,15 +30,15 @@ class ProfileCard extends StatelessWidget {
                   Text(
                     'Freddy Tamwo',
                     style: context.bodyMedium.copyWith(
-                      fontSize: 17,
-                      fontWeight: FontWeight.w600,
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w500,
                     ),
                   ),
                   Text(
                     'freddytamwo@gmail.com',
-                    style: TextStyle(
-                      fontSize: 13,
-                      color: Colors.grey[600],
+                    style: context.bodyMedium.copyWith(
+                      fontSize: 11.sp,
+                      color: Colors.grey,
                     ),
                   ),
                 ],
@@ -45,7 +47,7 @@ class ProfileCard extends StatelessWidget {
               Icon(
                 Icons.arrow_forward_ios,
                 size: 20,
-                color: Colors.grey[600],
+                color: context.iconTheme.color,
               ),
             ],
           ),

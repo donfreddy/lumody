@@ -2,14 +2,19 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:lumody/core/core.dart';
 
-class AppLanguageScreen extends StatelessWidget {
-  const AppLanguageScreen({super.key});
+import '../../../account.dart';
+
+class ChangeLanguageScreen extends StatelessWidget {
+  const ChangeLanguageScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: simpleAppBar(context, 'language'.tr()),
+      appBar: LmdAppBar(
+        title: UtilsHelper.trans('account.appearance.language'),
+      ),
       body: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Column(
@@ -26,15 +31,19 @@ class AppLanguageScreen extends StatelessWidget {
                   physics: const NeverScrollableScrollPhysics(),
                   itemCount: lmdSupportedLanguages.length,
                   itemBuilder: (context, index) {
+                    final language = lmdSupportedLanguages[index];
                     return Column(
                       children: [
-                        buildListTile(
-                          context,
-                          language: lmdSupportedLanguages[index],
-                          onChangeLanguage: (language) => context.setLocale(
-                            Locale(language.code!),
-                          ),
-                        ),
+                        AccountListItem(
+                            title: UtilsHelper.trans(
+                                'account.appearance.lang.${language.name}'),
+                            showIcon: false,
+                            showArrow: false,
+                            showCheck:
+                                context.locale.languageCode == language.code,
+                            onTap: () {
+                              context.setLocale(Locale(language.code!));
+                            }),
                         if (index < lmdSupportedLanguages.length - 1) ...[
                           const LmdDivider(),
                         ]
@@ -46,30 +55,6 @@ class AppLanguageScreen extends StatelessWidget {
               const SizedBox(height: 40),
             ],
           ),
-        ),
-      ),
-    );
-  }
-
-  Widget buildListTile(
-    BuildContext context, {
-    required Language language,
-    required void Function(Language) onChangeLanguage,
-  }) {
-    return LmdMaterial(
-      borderRadius: BorderRadius.circular(8),
-      color: context.cardColor,
-      onTap: () => onChangeLanguage(language),
-      child: Padding(
-        padding: 8.edgeInsetsH + 16.edgeInsetsV,
-        child: Row(
-          children: [
-            Text(language.name!.tr(), style: context.bodyMedium),
-            if (context.locale.languageCode == language.code) ...[
-              const Spacer(),
-              Icon(Icons.check, color: context.primaryColor),
-            ]
-          ],
         ),
       ),
     );

@@ -57,6 +57,12 @@ dependencies:
   # Small, easy to use and extensible logger which prints beautiful logs.
   logger: ^2.2.0
 
+  # Allows you to easily show toast and notification messages
+  toastification: ^2.1.0
+
+  # Sharing content via the platform share UI
+  # share_plus: ^10.0.2
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

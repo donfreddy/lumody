@@ -8,6 +8,8 @@ import 'package:lumody/features/home/presentation/widgets/background_overlay.dar
 import 'package:lumody/features/home/presentation/widgets/triangle.dart';
 import 'package:supercharged/supercharged.dart';
 
+import '../../../../core/core.dart';
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -106,7 +108,12 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     return PopScope(
       onPopInvoked: _preventPopIfOpen,
       child: Scaffold(
-        appBar: mainAppBar(context, 'Home'),
+        appBar: LmdAppBar(
+          title: UtilsHelper.trans('home.name'),
+          showMoreBtn: true,
+          showAppIcon: true,
+          onMoreBtnPressed: () {},
+        ),
         body: SingleChildScrollView(
           child: Column(
             children: [

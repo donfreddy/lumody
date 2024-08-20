@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:lumody/features/account/presentation/screens/account_screen.dart';
 import 'package:lumody/features/home/presentation/screens/home_screen.dart';
 
+import '../../../../core/core.dart';
+
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
 
@@ -49,22 +51,22 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
         onTap: onChangePage,
         type: BottomNavigationBarType.fixed,
         showUnselectedLabels: true,
-        items: const <BottomNavigationBarItem>[
+        items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
+            icon: const Icon(Icons.home),
+            label: UtilsHelper.trans('home.name'),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.camera),
-            label: 'Insights',
+            icon: const Icon(Icons.camera),
+            label: UtilsHelper.trans('insights.name'),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.calendar_month_rounded),
-            label: 'Calendar',
+            icon: const Icon(Icons.calendar_month_rounded),
+            label: UtilsHelper.trans('calendar.name'),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Account',
+            icon: const Icon(Icons.person),
+            label: UtilsHelper.trans('account.name'),
           ),
         ],
       ),

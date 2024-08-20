@@ -42,15 +42,35 @@
     "record": "Enregistrer",
     "restore": "Restaurer",
     "refresh": "Actualiser",
-    "reload": "Recharger"
+    "reload": "Recharger",
+    "logout": "Oui, déconnecter"
   },
-  "system": "Préférence système",
-  "light": "Clair",
-  "dark": "Sombre",
-  "language": "Langue",
-  "english": "Anglais",
-  "french": "Français",
-  "theme": "Thème",
-  "choose_theme": "Choisir un thème",
-  "appearance": "Apparence"
+  "home": {
+    "name": "Accueil"
+  },
+  "insights": {
+    "name": "Aperçu"
+  },
+  "calendar": {
+    "name": "Calendrier"
+  },
+  "account": {
+    "name": "Compte",
+    "logout": "Déconnexion",
+    "confirm_logout": "Êtes-vous sûr de vouloir vous déconnecter?",
+    "appearance": {
+      "name": "Apparence",
+      "system": "Thème du système",
+      "light": "Clair",
+      "dark": "Sombre",
+      "language": "Langue",
+      "theme": "Thème",
+      "choose_theme": "Choisir un thème",
+      "lang": {
+        "english": "Anglais",
+        "french": "Français"
+      }
+    }
+  },
+  "": ""
 }

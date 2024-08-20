@@ -9,7 +9,7 @@ class LmdDivider extends StatelessWidget {
   Widget build(BuildContext context) {
     return Divider(
       height: 0,
-      color: context.textColor.withOpacity(0.04),
+      color: context.textColor.withOpacity(0.02),
         indent: indent,
       endIndent: indent,
     );

@@ -1,5 +1,4 @@
 {
-  "app_name": "App name",
   "actions": {
     "save": "Save",
     "cancel": "Cancel",
@@ -42,15 +41,35 @@
     "record": "Record",
     "restore": "Restore",
     "refresh": "Refresh",
-    "reload": "Reload"
+    "reload": "Reload",
+    "logout": "Yes, Logout"
   },
-  "system": "System preference",
-  "light": "Light",
-  "dark": "Dark",
-  "language": "Language",
-  "english": "English",
-  "french": "French",
-  "theme": "Theme",
-  "choose_theme": "Choose theme",
-  "appearance": "Appearance"
+  "home": {
+    "name": "Home"
+  },
+  "insights": {
+    "name": "Insight"
+  },
+  "calendar": {
+    "name": "Calendar"
+  },
+  "account": {
+    "name": "Account",
+    "logout": "Logout",
+    "confirm_logout": "Are you sure you want to logout?",
+    "appearance": {
+      "name": "Appearance",
+      "system": "System Default",
+      "light": "Light",
+      "dark": "Dark",
+      "language": "Language",
+      "theme": "Theme",
+      "choose_theme": "Choose theme",
+      "lang": {
+        "english": "English",
+        "french": "French"
+      }
+    }
+  },
+  "": ""
 }

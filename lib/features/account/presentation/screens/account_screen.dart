@@ -1,8 +1,7 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:lumody/core/core.dart';
-import 'package:lumody/features/account/presentation/widgets/account_list_item.dart';
-import 'package:lumody/features/account/presentation/widgets/profile_card.dart';
+
+import '../../account.dart';
 
 class AccountScreen extends StatefulWidget {
   const AccountScreen({super.key});
@@ -20,15 +19,21 @@ class _AccountScreenState extends State<AccountScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: mainAppBar(context, 'Account'),
+      appBar: LmdAppBar(
+        title: UtilsHelper.trans('account.name'),
+        showMoreBtn: true,
+        showAppIcon: true,
+        onMoreBtnPressed: () {},
+      ),
       body: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Column(
             children: [
-              const Padding(
-                padding: EdgeInsets.symmetric(vertical: 20),
-                child: ProfileCard(),
+              Padding(
+                padding: 10.edgeInsetsV,
+                child: const ProfileCard(),
               ),
               Container(
                   decoration: BoxDecoration(
@@ -56,7 +61,7 @@ class _AccountScreenState extends State<AccountScreen> {
                       ),
                     ],
                   )),
-              const SizedBox(height: 20),
+              height10,
               Container(
                   decoration: BoxDecoration(
                     color: context.cardColor,
@@ -69,21 +74,25 @@ class _AccountScreenState extends State<AccountScreen> {
                         icon: Icons.notifications_none_rounded,
                         onTap: () {},
                       ),
+                      const LmdDivider(),
                       AccountListItem(
                         title: 'Edit Moods & Colors',
                         icon: Icons.emoji_emotions_outlined,
                         onTap: () {},
                       ),
+                      const LmdDivider(),
                       AccountListItem(
                         title: 'Manage Activities',
                         icon: Icons.grid_view_outlined,
                         onTap: () {},
                       ),
+                      const LmdDivider(),
                       AccountListItem(
                         title: 'Export Data',
                         icon: Icons.exit_to_app_outlined,
                         onTap: () {},
                       ),
+                      const LmdDivider(),
                       AccountListItem(
                         title: 'Preferences',
                         icon: Icons.settings_outlined,
@@ -91,76 +100,75 @@ class _AccountScreenState extends State<AccountScreen> {
                       ),
                     ],
                   )),
-              const SizedBox(height: 20),
+              height10,
               Container(
-                  decoration: BoxDecoration(
-                    color: context.cardColor,
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: Column(
-                    children: [
-                      AccountListItem(
-                        title: 'Account & Security',
-                        icon: Icons.school_rounded,
-                        onTap: () {},
-                      ),
-                      AccountListItem(
-                        title: 'Payment Methods',
-                        icon: Icons.credit_card,
-                        onTap: () {},
-                      ),
-                      AccountListItem(
-                        title: 'Billing & Subscriptions',
-                        icon: Icons.reddit_rounded,
-                        onTap: () {},
-                      ),
-                      AccountListItem(
-                        title: 'Linked Accounts',
-                        icon: Icons.swap_vert_sharp,
-                        onTap: () {},
-                      ),
-                      AccountListItem(
-                        title: 'appearance'.tr(),
-                        icon: Icons.remove_red_eye_outlined,
-                        onTap: () {
-                          Navigator.pushNamed(context, '/app-appearance');
-                        },
-                      ),
-                      AccountListItem(
-                        title: 'Help & Support',
-                        icon: Icons.file_present_rounded,
-                        onTap: () {},
-                      ),
-                      AccountListItem(
-                        title: 'Invite your friends',
-                        icon: Icons.group,
-                        onTap: () {},
-                      ),
-                      AccountListItem(
-                        title: 'Rate us',
-                        icon: Icons.star_border_outlined,
-                        onTap: () {},
-                      ),
-                      AccountListItem(
-                        title: 'Logout',
-                        icon: Icons.logout_outlined,
-                        isLogout: true,
-                        onTap: () {},
-                      ),
-                    ],
-                  )),
-              const Padding(
-                padding: EdgeInsets.symmetric(vertical: 10),
-                child: Text(
-                  'v1.0.0',
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: Colors.grey,
-                    fontStyle: FontStyle.italic,
-                    fontWeight: FontWeight.w600,
-                  ),
+                decoration: BoxDecoration(
+                  color: context.cardColor,
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Column(
+                  children: [
+                    AccountListItem(
+                      title: 'Account & Security',
+                      icon: Icons.school_rounded,
+                      onTap: () {},
+                    ),
+                    const LmdDivider(),
+                    AccountListItem(
+                      title: 'Payment Methods',
+                      icon: Icons.credit_card,
+                      onTap: () {},
+                    ),
+                    const LmdDivider(),
+                    AccountListItem(
+                      title: 'Billing & Subscriptions',
+                      icon: Icons.reddit_rounded,
+                      onTap: () {},
+                    ),
+                    const LmdDivider(),
+                    AccountListItem(
+                      title: 'Linked Accounts',
+                      icon: Icons.swap_vert_sharp,
+                      onTap: () {},
+                    ),
+                    const LmdDivider(),
+                    AccountListItem(
+                      title: UtilsHelper.trans('account.appearance.name'),
+                      icon: Icons.remove_red_eye_outlined,
+                      onTap: () => context.pushNamed('/appearance'),
+                    ),
+                    const LmdDivider(),
+                    AccountListItem(
+                      title: 'Help & Support',
+                      icon: Icons.file_present_rounded,
+                      onTap: () {},
+                    ),
+                    const LmdDivider(),
+                    AccountListItem(
+                      title: 'Invite your friends',
+                      icon: Icons.group,
+                      onTap: () => UtilsHelper.shareApp(context),
+                    ),
+                    const LmdDivider(),
+                    AccountListItem(
+                      title: 'Rate us',
+                      icon: Icons.star_border_outlined,
+                      onTap: () =>
+                        UtilsHelper.rateApp(context),
+                    ),
+                    const LmdDivider(),
+                    AccountListItem(
+                      title: UtilsHelper.trans('account.logout'),
+                      icon: Icons.logout_outlined,
+                      titleColor: Colors.red,
+                      iconColor: Colors.red,
+                      showArrow: false,
+                      onTap: () => showLogoutModalBottomSheet(context),
+                    ),
+                  ],
                 ),
               ),
+              height10,
             ],
           ),
         ),

@@ -6,6 +6,6 @@ class RouteName {
   static const String main = '/main';
 
   // Account
-  static const String appAppearance = '/app-appearance';
-  static const String appLanguage = '/app-language.dart';
+  static const String appearance = '/appearance';
+  static const String changeLanguage = '/change-language';
 }

@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:lumody/core/core.dart';
+import 'package:supercharged/supercharged.dart';
+import 'package:toastification/toastification.dart';
 
 extension ContextExt on BuildContext {
   ThemeData get theme => Theme.of(this);
@@ -21,6 +25,31 @@ extension ContextExt on BuildContext {
         backgroundColor: Colors.transparent,
         content: snackBar,
       ),
+    );
+  }
+
+  void showMessage(String message) {
+    toastification.show(
+      context: this,
+      type: ToastificationType.success,
+      style: ToastificationStyle.fillColored,
+      //backgroundColor: backgroundColor,
+      title: Text(
+        message,
+        style: bodyMedium.copyWith(
+          color: Colors.white,
+          fontSize: 12.sp,
+        ),
+      ),
+      borderSide: BorderSide.none,
+      borderRadius: 8.borderRadiusA,
+      padding: 8.edgeInsetsA,
+      animationDuration: 300.milliseconds,
+      autoCloseDuration: 5.seconds,
+      alignment: Alignment.bottomCenter,
+      showProgressBar: false,
+      showIcon: false,
+      closeButtonShowType: CloseButtonShowType.none,
     );
   }
 }

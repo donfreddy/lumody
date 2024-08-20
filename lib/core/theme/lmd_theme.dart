@@ -15,8 +15,8 @@ abstract class LmdTheme {
         surface: isDark ? LmdColors.darkBgColor : LmdColors.lightBgColor,
         background: isDark ? LmdColors.darkBgColor : LmdColors.lightBgColor,
         error: Colors.red,
-        onPrimary: Colors.grey,
-        onSecondary: Colors.grey,
+        onPrimary: Colors.white,
+        onSecondary: Colors.white,
         onSurface: isDark ? LmdColors.darkTextColor : LmdColors.lightTextColor,
         onBackground:
             isDark ? LmdColors.darkTextColor : LmdColors.lightTextColor,
@@ -28,6 +28,11 @@ abstract class LmdTheme {
           : _textTheme(ThemeData.light().textTheme, LmdColors.lightTextColor),
       iconTheme: const IconThemeData(color: Colors.grey),
       cardColor: isDark ? LmdColors.cardColor : Colors.white,
+      bottomNavigationBarTheme: BottomNavigationBarThemeData(
+        backgroundColor: isDark ? LmdColors.cardColor : Colors.white,
+        selectedItemColor: LmdColors.primaryColor,
+        unselectedItemColor: Colors.grey,
+      ),
       drawerTheme: const DrawerThemeData(
         backgroundColor: Colors.white,
         scrimColor: Colors.transparent,
